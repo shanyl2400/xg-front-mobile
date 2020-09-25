@@ -14,7 +14,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 export default function IntentSubjectItemModel(props) {
     const [subject, setSubject1] = useState("");
     const [subject2, setSubject2] = useState("");
-    const [note, setNote] = useState("");
+    const [note, setNote] = useState("基础课");
     const [curSubject, setCurSubject] = useState({})
 
     const handleClose = () => {

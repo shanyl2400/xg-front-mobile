@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import logo from '../logo.svg';
+import logo from '../logo.png';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -9,6 +9,7 @@ import axios from "axios"; //导入axios
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
+
 function saveSideInfo(name, res) {
     // sessionStorage.setItem("user_id", res.data.user_id);
     sessionStorage.setItem("user_name", name);
@@ -16,7 +17,11 @@ function saveSideInfo(name, res) {
     // sessionStorage.setItem("org_id", res.data.org_id);
     sessionStorage.setItem("role_name", res.data.role_name);
     sessionStorage.setItem("org_name", res.data.org_name);
-    sessionStorage.setItem("auths", res.data.auths);
+    let auths = ""
+    for(let i = 0; i < res.data.auths.length; i ++){
+        auths = auths + res.data.auths[i].name + ", ";
+    }
+    sessionStorage.setItem("auths", auths);
 }
 function Login(props) {
     const [loginInfo, setLoginInfo] = useState({
@@ -57,6 +62,17 @@ function Login(props) {
         }
         sessionStorage.setItem("token", res.data.token);
         axios.defaults.headers.common["Authorization"] = sessionStorage.getItem("token");
+        let flag = false
+        for(let i = 0; i < res.data.auths.length; i ++){
+            if(res.data.auths[i].name == "录单权"){
+                flag =true
+            }
+        }
+        if(!flag){
+            setErrMsg("该账号无登录手机端权限");
+            return;
+        }
+
         saveSideInfo(loginInfo.name, res);
         props.login();
     }
@@ -68,7 +84,7 @@ function Login(props) {
                 </Alert>
             </Snackbar>
             <div>
-                <img src={logo} style={{ height: 100, marginTop: 40 }} />
+                <img src={logo} style={{ width: "60%", marginTop: 40 }} />
             </div>
             <p>
                 <TextField id="name" value={loginInfo.name} onChange={(e) => handleUpdateLoginInfo("name", e.target.value)} label="用户名" />

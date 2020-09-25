@@ -81,7 +81,7 @@ function Create() {
         setName("");
         setTelephone("");
         setEmail("");
-        setAddrCity({ name: "", label: "", children: null });
+        // setAddrCity({ name: "", label: "", children: null });
         setAddrRegion("");
         setOrderSource("");
         setNote("");
