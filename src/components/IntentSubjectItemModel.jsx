@@ -22,6 +22,9 @@ export default function IntentSubjectItemModel(props) {
     };
 
     const handleSave = () => {
+        if(subject == "" || subject2 == "") {
+            return;
+        }
         props.addIntentSubject({
             subject: subject,
             subject2: subject2,

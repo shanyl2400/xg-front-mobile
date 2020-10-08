@@ -46,6 +46,7 @@ function Create() {
     const [errMsg, setErrMsg] = useState("");
     const [successMsg, setSuccessMsg] = useState("");
     const [intentSubjects, setIntentSubjects] = useState([]);
+    const [addressExt, setAddressExt] = useState("");
 
     let addIntentSubject = data => {
         index++;
@@ -81,6 +82,7 @@ function Create() {
         setName("");
         setTelephone("");
         setEmail("");
+        setAddressExt("");
         // setAddrCity({ name: "", label: "", children: null });
         setAddrRegion("");
         setOrderSource("");
@@ -96,7 +98,7 @@ function Create() {
             setErrMsg("学生电话不能为空");
             return false;
         }
-        if (addrCity == null || addrCity.name == "") {
+        if (addrCity == null || addrCity.value == "") {
             setErrMsg("居住城市不能为空");
             return false;
         }
@@ -119,7 +121,7 @@ function Create() {
         if (!noErr) {
             return;
         }
-        let address = addrCity.name + addrRegion;
+        let address = addrCity.value + addrRegion;
         let intentSubjectData = [];
         for (let i = 0; i < intentSubjects.length; i++) {
             intentSubjectData.push(intentSubjects[i].subject + "-" + intentSubjects[i].subject2 + "-" + intentSubjects[i].note)
@@ -130,6 +132,7 @@ function Create() {
             "telephone": telephone,
             "email": email,
             "address": address,
+            "address_ext":addressExt,
             "intent_subject": intentSubjectData,
             "note": note,
             "order_source_id": orderSource
@@ -221,6 +224,13 @@ function Create() {
                     </Select>
                 </FormControl>
             </div>
+            <TextField
+                className={classes.field}
+                label="详细地址"
+                value={addressExt}
+                onChange={e => setAddressExt(e.target.value)}
+                rows={6}
+            />
             <div className={classes.field}>
                 <FormControl className={classes.formControl}>
                     <InputLabel htmlFor="grouped-select">订单来源</InputLabel>

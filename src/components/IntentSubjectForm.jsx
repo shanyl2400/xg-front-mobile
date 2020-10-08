@@ -74,7 +74,13 @@ function IntentSubjectForm(props) {
         const fetchData = async () => {
           const sub = await getSubjects();
           console.log(sub);
-          setSubjects(sub);
+          let subjects = [];
+          for(let i = 0; i < sub.length; i ++){
+            if(sub[i].children.length > 0){
+              subjects.push(sub[i]);
+            }
+          }
+          setSubjects(subjects);
         }
         fetchData();
       }, [])

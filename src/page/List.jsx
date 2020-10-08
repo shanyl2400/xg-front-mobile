@@ -21,7 +21,7 @@ async function fetchStudent(page, pageSize) {
             gender: rawStudents[i].gender,
             email: rawStudents[i].email,
             student_name: rawStudents[i].name,
-            address: rawStudents[i].address,
+            address: rawStudents[i].address + rawStudents[i].address_ext,
             telephone: rawStudents[i].telephone,
             intent_subject: rawStudents[i].intent_subject,
             status: rawStudents[i].status,
